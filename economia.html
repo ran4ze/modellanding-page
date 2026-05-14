@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Economize na Conta de Energia — iGreen</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --verde: #1a6e2e;
+      --verde-claro: #27a147;
+      --verde-bg: #f0f9f3;
+      --amarelo: #f5c518;
+      --cinza: #f5f5f5;
+      --texto: #1a1a1a;
+      --texto-suave: #555;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--texto);
+      background: #fff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--verde) 0%, var(--verde-claro) 100%);
+      color: #fff;
+      padding: 60px 20px 50px;
+      text-align: center;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: var(--amarelo);
+      color: var(--texto);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.2;
+      max-width: 680px;
+      margin: 0 auto 16px;
+    }
+
+    .hero p {
+      font-size: clamp(15px, 2.5vw, 18px);
+      opacity: 0.92;
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .btn-wpp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25d366;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-wpp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    }
+
+    .btn-wpp svg { width: 22px; height: 22px; fill: #fff; }
+
+    .hero .nota {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-top: 14px;
+    }
+
+    /* ── SEÇÕES GERAIS ── */
+    section { padding: 60px 20px; }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .titulo-secao {
+      font-size: clamp(20px, 3.5vw, 28px);
+      font-weight: 800;
+      color: var(--verde);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* ── COMO FUNCIONA ── */
+    .como-funciona { background: var(--verde-bg); }
+
+    .passos {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .passo {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .passo .numero {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      background: var(--verde);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .passo h3 { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+    .passo p { font-size: 14px; color: var(--texto-suave); line-height: 1.55; }
+
+    /* ── QUEM PODE ── */
+    .quem-pode { background: #fff; }
+
+    .criterios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .criterio {
+      background: var(--verde-bg);
+      border-left: 4px solid var(--verde);
+      border-radius: 10px;
+      padding: 18px 20px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .criterio strong { display: block; margin-bottom: 4px; color: var(--verde); }
+
+    /* ── FAQ ── */
+    .faq { background: var(--cinza); }
+
+    .faq-lista { display: flex; flex-direction: column; gap: 14px; }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+
+    .faq-pergunta {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 18px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--texto);
+    }
+
+    .faq-pergunta .icone {
+      font-size: 20px;
+      color: var(--verde);
+      transition: transform 0.2s;
+    }
+
+    .faq-pergunta.aberto .icone { transform: rotate(45deg); }
+
+    .faq-resposta {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--texto-suave);
+      line-height: 1.6;
+    }
+
+    .faq-resposta.aberto { display: block; }
+
+    /* ── FORMULÁRIO ── */
+    .formulario-secao { background: var(--verde-bg); }
+
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .form-card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--verde);
+      margin-bottom: 6px;
+    }
+
+    .form-card p {
+      font-size: 14px;
+      color: var(--texto-suave);
+      margin-bottom: 24px;
+    }
+
+    .form-grupo { margin-bottom: 18px; }
+
+    .form-grupo label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--texto);
+    }
+
+    .form-grupo input,
+    .form-grupo select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 15px;
+      color: var(--texto);
+      background: #fff;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-grupo input:focus,
+    .form-grupo select:focus {
+      outline: none;
+      border-color: var(--verde-claro);
+    }
+
+    .btn-enviar {
+      width: 100%;
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 6px;
+    }
+
+    .btn-enviar:hover { background: var(--verde-claro); transform: translateY(-1px); }
+    .btn-enviar:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .form-feedback {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--verde);
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: linear-gradient(135deg, var(--verde) 0%, var(--verde-claro) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .cta-final h2 {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .cta-final p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--texto);
+      color: #aaa;
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 13px;
+    }
+
+    footer a { color: #aaa; text-decoration: underline; }
+
+    @media (max-width: 500px) {
+      .form-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="badge">⚡ Programa de Economia de Energia</div>
+  <h1>Pague menos na conta de luz — sem complicação</h1>
+  <p>Centenas de famílias já reduziram até 20% na conta. Descubra se você se qualifica em 2 minutos.</p>
+  <a class="btn-wpp" id="btn-wpp-hero" href="#" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Simular no WhatsApp
+  </a>
+  <p class="nota">Sem compromisso. Só uma conversa rápida.</p>
+</section>
+
+<!-- ── COMO FUNCIONA ── -->
+<section class="como-funciona">
+  <div class="container">
+    <h2 class="titulo-secao">Como funciona em 3 passos</h2>
+    <div class="passos">
+      <div class="passo">
+        <div class="numero">1</div>
+        <div>
+          <h3>Você faz uma simulação rápida</h3>
+          <p>Informa sua cidade e o valor médio da sua conta de energia. Sem burocracia, sem documentos nesse momento.</p>
+        </div>
+      </div>
+      <div class="passo">
+        <div class="numero">2</div>
+        <div>
+          <h3>A gente verifica sua elegibilidade</h3>
+          <p>Nossa equipe analisa se a sua região e perfil se encaixam no programa. Isso leva no máximo 1 dia útil.</p>
+        </div>
+      </div>
+      <div class="passo">
+        <div class="numero">3</div>
+        <div>
+          <h3>Começa a economizar na próxima fatura</h3>
+          <p>Após a adesão, o desconto já aparece na próxima conta. Sem trocar de distribuidora, sem obra, sem nada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUEM PODE ── -->
+<section class="quem-pode">
+  <div class="container">
+    <h2 class="titulo-secao">Quem pode participar</h2>
+    <div class="criterios">
+      <div class="criterio">
+        <strong>📍 Localização</strong>
+        Moradores das regiões atendidas pelo programa (confirmamos sua cidade na simulação).
+      </div>
+      <div class="criterio">
+        <strong>💡 Conta de energia</strong>
+        Contas residenciais ou comerciais acima de R$ 150/mês têm melhor aproveitamento.
+      </div>
+      <div class="criterio">
+        <strong>📄 Titular da conta</strong>
+        Você precisa ser o titular ou ter autorização do titular da conta de energia.
+      </div>
+      <div class="criterio">
+        <strong>✅ Sem restrições</strong>
+        Não é necessário ter imóvel próprio. Inquilinos também podem participar.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq">
+  <div class="container">
+    <h2 class="titulo-secao">Perguntas frequentes</h2>
+    <div class="faq-lista">
+
+      <div class="faq-item">
+        <button class="faq-pergunta">
+          Isso é seguro e legal?
+          <span class="icone">+</span>
+        </button>
+        <div class="faq-resposta">
+          Sim. O programa opera dentro das normas da ANEEL (Agência Nacional de Energia Elétrica) e utiliza mecanismos regulamentados de geração distribuída e compensação de energia.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">
+          Preciso trocar de distribuidora de energia?
+          <span class="icone">+</span>
+        </button>
+        <div class="faq-resposta">
+          Não. Você continua com a mesma distribuidora (Cemig, Enel, CPFL, etc.). O desconto aparece diretamente na sua fatura atual.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">
+          Quanto posso economizar?
+          <span class="icone">+</span>
+        </button>
+        <div class="faq-resposta">
+          O desconto varia conforme seu perfil e região, mas clientes relatam economias de 10% a 20% na fatura mensal. Na simulação, a gente estima o seu caso específico.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">
+          Em quanto tempo o desconto aparece na conta?
+          <span class="icone">+</span>
+        </button>
+        <div class="faq-resposta">
+          Geralmente na próxima fatura após a adesão ser processada, o que costuma levar de 15 a 30 dias após o envio dos documentos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">
+          O que eu preciso enviar?
+          <span class="icone">+</span>
+        </button>
+        <div class="faq-resposta">
+          Apenas uma foto da sua conta de energia mais recente e um documento de identificação. Tudo pelo WhatsApp, sem precisar sair de casa.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FORMULÁRIO (backup) ── -->
+<section class="formulario-secao">
+  <div class="container">
+    <div class="form-card">
+      <h3>Prefere que a gente te chame?</h3>
+      <p>Preencha abaixo e nossa equipe entra em contato com você.</p>
+
+      <form id="form-cliente">
+        <div class="form-grupo">
+          <label for="nome">Nome completo *</label>
+          <input type="text" id="nome" placeholder="Seu nome" required />
+        </div>
+        <div class="form-grupo">
+          <label for="whatsapp">WhatsApp *</label>
+          <input type="tel" id="whatsapp" placeholder="(11) 99999-9999" required />
+        </div>
+        <div class="form-grupo">
+          <label for="cidade">Cidade / Estado *</label>
+          <input type="text" id="cidade" placeholder="Ex: Recife / PE" required />
+        </div>
+        <div class="form-grupo">
+          <label for="faixa">Valor médio da conta de energia *</label>
+          <select id="faixa" required>
+            <option value="">Selecione...</option>
+            <option value="0-150">Até R$ 150</option>
+            <option value="150-300">R$ 150 a R$ 300</option>
+            <option value="300-500">R$ 300 a R$ 500</option>
+            <option value="500+">Acima de R$ 500</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-enviar" id="btn-enviar">Quero ser contatado!</button>
+        <div class="form-feedback" id="feedback-cliente"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ── -->
+<section class="cta-final">
+  <div class="container">
+    <h2>Pronto para pagar menos na conta de luz?</h2>
+    <p>É rápido, sem compromisso e pode começar agora mesmo.</p>
+    <a class="btn-wpp" id="btn-wpp-final" href="#" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Simular no WhatsApp agora
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 iGreen Energia · <a href="#">Política de Privacidade</a></p>
+</footer>
+
+<script>
+  // ── CONFIGURAÇÕES — edite aqui ──────────────────────────────────────────
+  const APPS_SCRIPT_URL = "URL_DO_BANCO_PARA_SALVAR_INFO_LEADS";
+  const WHATSAPP_NUMERO = "5581999999999"; // número do WhatsApp da iGreen (com DDI e DDD, sem símbolos)
+  // ────────────────────────────────────────────────────────────────────────
+
+  // ── Captura UTMs e REF da URL ──
+  function getParam(nome) {
+    return new URLSearchParams(window.location.search).get(nome) || "";
+  }
+
+  const utmSource   = getParam("utm_source");
+  const utmCampaign = getParam("utm_campaign");
+  const utmContent  = getParam("utm_content");
+  const ref         = getParam("ref");
+
+  // Persiste na sessão para não perder se o usuário navegar
+  if (utmSource)   sessionStorage.setItem("utm_source", utmSource);
+  if (utmCampaign) sessionStorage.setItem("utm_campaign", utmCampaign);
+  if (utmContent)  sessionStorage.setItem("utm_content", utmContent);
+  if (ref)         sessionStorage.setItem("ref", ref);
+
+  function getSaved(chave) {
+    return getParam(chave) || sessionStorage.getItem(chave) || "";
+  }
+
+  // ── Monta link do WhatsApp ──
+  function montarLinkWpp(cidade, faixa) {
+    const refSalvo = getSaved("ref");
+    let msg = "Oi! Vim pelo link de economia de energia.";
+    if (cidade) msg += `\nSou de ${cidade}`;
+    if (faixa)  msg += ` e minha conta fica em torno de ${faixa}`;
+    msg += ".\nQuero saber como funciona.";
+    if (refSalvo) msg += `\n\n[ref: ${refSalvo}]`;
+    return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(msg)}`;
+  }
+
+  // Botões do hero e CTA final (sem dados de formulário ainda)
+  document.getElementById("btn-wpp-hero").href  = montarLinkWpp("", "");
+  document.getElementById("btn-wpp-final").href = montarLinkWpp("", "");
+
+  // ── Formulário ──
+  document.getElementById("form-cliente").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const btn      = document.getElementById("btn-enviar");
+    const feedback = document.getElementById("feedback-cliente");
+    const cidade   = document.getElementById("cidade").value.trim();
+    const faixa    = document.getElementById("faixa").value;
+
+    btn.disabled    = true;
+    btn.textContent = "Enviando...";
+
+    const payload = {
+      tipo:         "cliente",
+      nome:         document.getElementById("nome").value.trim(),
+      whatsapp:     document.getElementById("whatsapp").value.trim(),
+      cidade:       cidade,
+      faixa:        faixa,
+      utm_source:   getSaved("utm_source"),
+      utm_campaign: getSaved("utm_campaign"),
+      utm_content:  getSaved("utm_content"),
+      ref:          getSaved("ref")
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+
+      // Sucesso: mostra mensagem e abre WhatsApp
+      this.style.display = "none";
+      feedback.style.display = "block";
+      feedback.innerHTML = "✅ Recebido! Abrindo WhatsApp para você...";
+
+      setTimeout(() => {
+        window.open(montarLinkWpp(cidade, faixa), "_blank");
+      }, 1200);
+
+    } catch (err) {
+      btn.disabled    = false;
+      btn.textContent = "Quero ser contactado";
+      feedback.style.display  = "block";
+      feedback.style.color    = "#c0392b";
+      feedback.textContent    = "Erro ao enviar. Tente pelo WhatsApp diretamente.";
+    }
+  });
+
+  // FAQ accordion
+  document.querySelectorAll(".faq-pergunta").forEach(btn => {
+    btn.addEventListener("click", function () {
+      const resposta = this.nextElementSibling;
+      const aberto   = resposta.classList.contains("aberto");
+
+      document.querySelectorAll(".faq-resposta").forEach(r => r.classList.remove("aberto"));
+      document.querySelectorAll(".faq-pergunta").forEach(b => b.classList.remove("aberto"));
+
+      if (!aberto) {
+        resposta.classList.add("aberto");
+        this.classList.add("aberto");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
